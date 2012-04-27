@@ -126,10 +126,10 @@ class ACF_Address_Field extends acf_Field {
 	public function admin_print_styles() {
 		global $pagenow;
 
-		wp_register_style( 'acf-address-field', $this->base_uri_abs . '/address-field.css' );
+		wp_register_style( 'acf-address-field-css', plugin_dir_url( '' , dirname(__FILE__)).'acf-address-field/address-field.css' );
 		
 		if( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
-			wp_enqueue_style( 'acf-address-field' );
+			wp_enqueue_style( 'acf-address-field-css' );
 		}
 	}
 	
@@ -144,15 +144,15 @@ class ACF_Address_Field extends acf_Field {
 	 */
 	public function admin_print_scripts() {
 		global $pagenow;
-		wp_register_script( 'acf-address-field', $this->base_uri_abs . '/address-field.js', array( 'jquery-ui-sortable' ) );
+		wp_register_script( 'acf-address-field-js', plugin_dir_url( '' , dirname(__FILE__)).'acf-address-field/address-field.js', array( 'jquery-ui-sortable' ) );
 		
 		// This passes the defaults for the address field into javascript so we can use them there.
 		$defaults = array();
 		$this->set_field_defaults( $defaults );
-		wp_localize_script( 'acf-address-field', 'acf_address_field_defaults', $defaults[ 'address_components' ] );
+		wp_localize_script( 'acf-address-field-js', 'acf_address_field_defaults', $defaults[ 'address_components' ] );
 
 		if( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
-			wp_enqueue_script( 'acf-address-field' );
+			wp_enqueue_script( 'acf-address-field-js' );
 		}
 	}
 	
